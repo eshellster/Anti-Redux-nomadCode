@@ -1,12 +1,15 @@
-import React, { Component } from "react";
+import React, { useState, useContext } from "react";
 import NotificationPresenter from "./NotificationPresenter";
+import { Store } from "store";
 
-class NotificationContainer extends Component {
-  static propTypes = {};
-  state = {};
-  render() {
-    return <NotificationPresenter {...this.props} {...this.state} />;
-  }
-}
+const NotificationContainer = props => {
+  // static propTypes = {};
+
+  const { state } = useContext(Store);
+
+  const [messageState, setMessageState] = useState({});
+
+  return <NotificationPresenter {...props} {...messageState} />;
+};
 
 export default NotificationContainer;

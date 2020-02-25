@@ -1,10 +1,10 @@
-import React, { Fragment } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Flex, { FlexItem } from "styled-flex-component";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { Store } from "store";
 const Notification = styled.div`
   background-color: white;
   box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
@@ -52,23 +52,26 @@ const Button = styled.button`
   }
 `;
 
-const NotificationPresenter = ({ id, text, seen }) => (
-  <Notification seen={seen}>
-    <Flex alignCenter justifyBetween>
-      <Title>{text}</Title>
-      <FlexItem>
-        <Fragment>
-          <Button success seen={seen} onClick={() => {}}>
-            <FontAwesomeIcon icon={faCheck} />
-          </Button>
-          <Button danger seen={seen} onClick={() => {}}>
-            <FontAwesomeIcon icon={faTimes} />
-          </Button>
-        </Fragment>
-      </FlexItem>
-    </Flex>
-  </Notification>
-);
+const NotificationPresenter = ({ id, text, seen }) => {
+  const { store } = useContext(Store);
+  return (
+    <Notification seen={seen}>
+      <Flex alignCenter justifyBetween>
+        <Title>{store.message}</Title>
+        <FlexItem>
+          <>
+            <Button success seen={seen} onClick={() => {}}>
+              <FontAwesomeIcon icon={faCheck} />
+            </Button>
+            <Button danger seen={seen} onClick={() => {}}>
+              <FontAwesomeIcon icon={faTimes} />
+            </Button>
+          </>
+        </FlexItem>
+      </Flex>
+    </Notification>
+  );
+};
 
 NotificationPresenter.propTypes = {
   text: PropTypes.string.isRequired,

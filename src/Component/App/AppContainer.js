@@ -1,15 +1,13 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import AppPresenter from "./AppPresenter";
-import Store from "store";
+import Context from "store";
 
-class AppContainer extends Component {
-  render() {
-    return (
-      <Store.Provider>
-        <AppPresenter />
-      </Store.Provider>
-    );
-  }
-}
+const AppContainer = () => {
+  return (
+    <Context>
+      <AppPresenter />
+    </Context>
+  );
+};
 
 export default AppContainer;
