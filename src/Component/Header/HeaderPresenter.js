@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import Flex, { FlexItem } from "styled-flex-component";
 import { faUser, faCog, faBell } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Store } from "store";
 
 const Header = styled.header`
   height: 100px;
@@ -44,28 +45,38 @@ const Number = styled.span`
   top: -10px;
 `;
 
-const HeaderPresenter = () => (
-  <Header>
-    <Flex full justifyBetween alignCenter>
-      <FlexItem>
-        <h3>Antiredux</h3>
-      </FlexItem>
-      <FlexItem>
-        <Flex>
-          <HeaderIcon>
-            <FontAwesomeIcon icon={faUser} />
-          </HeaderIcon>
-          <HeaderIcon>
-            <FontAwesomeIcon icon={faCog} />
-          </HeaderIcon>
-          <HeaderIcon>
-            <FontAwesomeIcon icon={faBell} />
-            <Number>10</Number>
-          </HeaderIcon>
-        </Flex>
-      </FlexItem>
-    </Flex>
-  </Header>
-);
+const HeaderPresenter = () => {
+  const { stores } = useContext(Store);
+  console.log(stores);
+
+  // cosnt getUnseen = () =>{
+
+  // }
+  return (
+    <Header>
+      <Flex full justifyBetween alignCenter>
+        <FlexItem>
+          <h3>Antiredux</h3>
+        </FlexItem>
+        <FlexItem>
+          <Flex>
+            <HeaderIcon>
+              <FontAwesomeIcon icon={faUser} />
+            </HeaderIcon>
+            <HeaderIcon>
+              <FontAwesomeIcon icon={faCog} />
+            </HeaderIcon>
+            <HeaderIcon>
+              <FontAwesomeIcon icon={faBell} />
+              <Number>
+                {stores.filter(store => store.seen === false).length}
+              </Number>
+            </HeaderIcon>
+          </Flex>
+        </FlexItem>
+      </Flex>
+    </Header>
+  );
+};
 
 export default HeaderPresenter;
