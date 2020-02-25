@@ -53,14 +53,14 @@ const Button = styled.button`
 `;
 
 const NotificationPresenter = ({ id, text, seen }) => {
-  const { store } = useContext(Store);
+  const { store, changeMessage } = useContext(Store);
   return (
     <Notification seen={seen}>
       <Flex alignCenter justifyBetween>
         <Title>{store.message}</Title>
         <FlexItem>
           <>
-            <Button success seen={seen} onClick={() => {}}>
+            <Button success seen={seen} onClick={changeMessage}>
               <FontAwesomeIcon icon={faCheck} />
             </Button>
             <Button danger seen={seen} onClick={() => {}}>
