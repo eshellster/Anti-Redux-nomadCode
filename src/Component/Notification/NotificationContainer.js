@@ -1,15 +1,16 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import NotificationPresenter from "./NotificationPresenter";
 import { Store } from "store";
 
-const NotificationContainer = props => {
+const NotificationContainer = () => {
   // static propTypes = {};
 
-  const { state } = useContext(Store);
+  const { stores } = useContext(Store);
+  const notiList = stores.map(store => (
+    <NotificationPresenter id={store.id} text={store.text} seen={store.seen} />
+  ));
 
-  const [messageState, setMessageState] = useState({});
-
-  return <NotificationPresenter {...props} {...messageState} />;
+  return <>{notiList}</>;
 };
 
 export default NotificationContainer;
