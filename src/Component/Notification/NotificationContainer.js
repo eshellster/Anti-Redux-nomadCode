@@ -6,8 +6,12 @@ const NotificationContainer = () => {
   // static propTypes = {};
 
   const { stores } = useContext(Store);
-  const notiList = stores.map(store => (
-    <NotificationPresenter id={store.id} text={store.text} seen={store.seen} />
+  const notiList = Object.keys(stores).map(key => (
+    <NotificationPresenter
+      id={stores[key].id}
+      text={stores[key].text}
+      seen={stores[key].seen}
+    />
   ));
 
   return <>{notiList}</>;

@@ -47,9 +47,6 @@ const Number = styled.span`
 
 const HeaderPresenter = () => {
   const { stores } = useContext(Store);
-  console.log(stores);
-
-  // cosnt getUnseen = () =>{
 
   // }
   return (
@@ -69,7 +66,10 @@ const HeaderPresenter = () => {
             <HeaderIcon>
               <FontAwesomeIcon icon={faBell} />
               <Number>
-                {stores.filter(store => store.seen === false).length}
+                {
+                  Object.keys(stores).filter(key => stores[key].seen === false)
+                    .length
+                }
               </Number>
             </HeaderIcon>
           </Flex>

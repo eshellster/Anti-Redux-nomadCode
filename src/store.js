@@ -13,7 +13,7 @@ const notificationsArray = [
   { id: 3, text: "gamjatang", seen: false }
 ];
 const Context = ({ children }) => {
-  const [stores, setStores] = useState(notificationsArray);
+  const [stores, setStores] = useState(notificationsObject);
 
   const changeSeenState = id => {
     const updateNoti = notificationsArray.map(noti => {
