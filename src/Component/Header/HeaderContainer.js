@@ -3,7 +3,7 @@ import HeaderPresenter from "./HeaderPresenter";
 
 const HeaderContainer = () => {
   // static propTypes = {};
-  const [state, setState] = useState({});
+  const [state] = useState({});
   return <HeaderPresenter {...state} />;
 };
 
