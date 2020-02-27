@@ -12,7 +12,7 @@ const NotificationContainer = () => {
       {Object.keys(stores).map(key => (
         <NotificationPresenter
           key={stores[key].id}
-          id={key}
+          id={stores[key].id}
           text={stores[key].text}
           seen={stores[key].seen}
         />

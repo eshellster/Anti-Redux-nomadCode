@@ -14,7 +14,7 @@ const notificationsArray = [
 ];
 const Context = ({ children }) => {
   const [stores, setStores] = useState(notificationsObject);
-  const [newStores, setNewStores] = useState();
+  //   const [newStores, setNewStores] = useState();
 
   //   const seeNotification = id => {
   //     setStores(current => {
@@ -23,12 +23,10 @@ const Context = ({ children }) => {
   //   };
 
   const deleteNotification = id => {
-    const temp = stores;
-    delete temp[id];
-    const newStores = Object.keys(temp).map(key => {
-      return temp[key];
-    });
+    const newStores = { ...stores };
+    delete newStores[id];
     setStores(newStores);
+    console.log(newStores);
   };
 
   const changeSeenState = id => {
