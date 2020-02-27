@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Flex, { FlexItem } from "styled-flex-component";
 import { faUser, faCog, faBell } from "@fortawesome/free-solid-svg-icons";

@@ -26,7 +26,7 @@ const Context = ({ children }) => {
     const newStores = { ...stores };
     delete newStores[id];
     setStores(newStores);
-    console.log(newStores);
+    // console.log(newStores);
   };
 
   const changeSeenState = id => {
@@ -35,16 +35,12 @@ const Context = ({ children }) => {
         if (stores[key].seen) stores[key].seen = false;
         else stores[key].seen = true;
       }
-      console.log(stores[key]);
+      //   console.log(stores[key]);
 
       return stores[key];
     });
     setStores(updateNoti);
   };
-
-  useEffect(() => {
-    console.log("stores 업데이트", stores);
-  }, [stores]);
 
   return (
     <Store.Provider value={{ stores, changeSeenState, deleteNotification }}>
