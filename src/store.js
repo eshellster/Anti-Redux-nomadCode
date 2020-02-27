@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 export const Store = createContext();
 
 const notificationsObject = {
@@ -14,22 +14,42 @@ const notificationsArray = [
 ];
 const Context = ({ children }) => {
   const [stores, setStores] = useState(notificationsObject);
+  const [newStores, setNewStores] = useState();
+
+  //   const seeNotification = id => {
+  //     setStores(current => {
+  //       return delete current.notificationsObject[id];
+  //     });
+  //   };
+
+  const deleteNotification = id => {
+    const temp = stores;
+    delete temp[id];
+    const newStores = Object.keys(temp).map(key => {
+      return temp[key];
+    });
+    setStores(newStores);
+  };
 
   const changeSeenState = id => {
-    const updateNoti = notificationsArray.map(noti => {
-      if (noti.id === +id) {
-        if (noti.seen) noti.seen = false;
-        else noti.seen = true;
+    const updateNoti = Object.keys(stores).map(key => {
+      if (stores[key].id === +id) {
+        if (stores[key].seen) stores[key].seen = false;
+        else stores[key].seen = true;
       }
-      console.log(noti);
+      console.log(stores[key]);
 
-      return noti;
+      return stores[key];
     });
     setStores(updateNoti);
   };
 
+  useEffect(() => {
+    console.log("stores 업데이트", stores);
+  }, [stores]);
+
   return (
-    <Store.Provider value={{ stores, changeSeenState }}>
+    <Store.Provider value={{ stores, changeSeenState, deleteNotification }}>
       {children}
     </Store.Provider>
   );

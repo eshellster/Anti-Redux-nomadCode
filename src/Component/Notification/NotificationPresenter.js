@@ -54,23 +54,17 @@ const Button = styled.button`
 `;
 
 const NotificationPresenter = ({ id, text, seen }) => {
-  const { changeSeenState } = useContext(Store);
+  const { changeSeenState, deleteNotification } = useContext(Store);
 
-  const toggleSeen = e => {
-    const id = e.target.dataset.id;
-    console.log("id", id);
-
-    changeSeenState(id);
-  };
   return (
     <Notification seen={seen}>
       <Flex alignCenter justifyBetween>
         <Title>{text}</Title>
         <FlexItem>
-          <Button data-id={id} success seen={seen} onClick={toggleSeen}>
+          <Button success seen={seen} onClick={() => changeSeenState(id)}>
             <FontAwesomeIcon icon={faCheck} />
           </Button>
-          <Button seen={seen} danger onClick={() => {}}>
+          <Button seen={seen} danger onClick={() => deleteNotification(id)}>
             <FontAwesomeIcon data-id={id} icon={faTimes} />
           </Button>
         </FlexItem>
