@@ -48,8 +48,6 @@ const Number = styled.span`
 const HeaderPresenter = () => {
   const { stores } = useContext(Store);
 
-  console.log(stores);
-
   // }
   return (
     <Header>

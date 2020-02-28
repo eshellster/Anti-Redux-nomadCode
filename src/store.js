@@ -31,28 +31,15 @@ const notificationsReducer = (stores, { type, payload }) => {
 const Context = ({ children }) => {
   const [stores, dispatch] = useReducer(notificationsReducer, {});
 
-  const deleteNotification = id => {
-    dispatch({ type: "DELETE_NOTIFICATION", payload: id });
-  };
-
-  const changeSeenState = id => {
-    dispatch({ type: "CAHNGE_SEEN_STATUS", payload: id });
-  };
-
   useEffect(() => {
     dispatch({
       type: "SET_INIT_STORES",
       payload: notificationsObject
     });
-    console.log("값이 변경되었습니다.", stores);
   }, []);
 
   return (
-    <Store.Provider
-      value={{ stores, dispatch, changeSeenState, deleteNotification }}
-    >
-      {children}
-    </Store.Provider>
+    <Store.Provider value={{ stores, dispatch }}>{children}</Store.Provider>
   );
 };
 export default Context;

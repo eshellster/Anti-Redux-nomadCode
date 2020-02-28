@@ -54,7 +54,15 @@ const Button = styled.button`
 `;
 
 const NotificationPresenter = ({ id, text, seen }) => {
-  const { changeSeenState, deleteNotification } = useContext(Store);
+  const { dispatch } = useContext(Store);
+
+  const deleteNotification = id => {
+    dispatch({ type: "DELETE_NOTIFICATION", payload: id });
+  };
+
+  const changeSeenState = id => {
+    dispatch({ type: "CAHNGE_SEEN_STATUS", payload: id });
+  };
 
   return (
     <Notification seen={seen}>
