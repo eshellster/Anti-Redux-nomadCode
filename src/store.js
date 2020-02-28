@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useEffect, useReducer } from "react";
 export const Store = createContext();
 
 const notificationsObject = {
@@ -7,31 +7,50 @@ const notificationsObject = {
   3: { id: 3, text: "gamjatang", seen: false }
 };
 
+const notificationsReducer = (stores, { type, payload }) => {
+  switch (type) {
+    case "SET_INIT_STORES":
+      return payload;
+
+    case "DELETE_NOTIFICATION":
+      delete stores[payload];
+      return { ...stores };
+
+    case "CAHNGE_SEEN_STATUS":
+      const toggleSeen = stores[[payload]].seen ? false : true;
+      return {
+        ...stores,
+        [payload]: { ...stores[payload], seen: toggleSeen }
+      };
+
+    default:
+      break;
+  }
+};
+
 const Context = ({ children }) => {
-  const [stores, setStores] = useState(notificationsObject);
+  const [stores, dispatch] = useReducer(notificationsReducer, {});
 
   const deleteNotification = id => {
-    const newStores = { ...stores };
-    delete newStores[id];
-    setStores(newStores);
+    dispatch({ type: "DELETE_NOTIFICATION", payload: id });
   };
 
   const changeSeenState = id => {
-    const toggleSeen = stores[id].seen ? false : true;
-
-    const updateStores = {
-      ...stores,
-      [id]: { ...stores[id], seen: toggleSeen }
-    };
-    setStores(updateStores);
+    dispatch({ type: "CAHNGE_SEEN_STATUS", payload: id });
   };
 
   useEffect(() => {
+    dispatch({
+      type: "SET_INIT_STORES",
+      payload: notificationsObject
+    });
     console.log("값이 변경되었습니다.", stores);
-  }, [stores]);
+  }, []);
 
   return (
-    <Store.Provider value={{ stores, changeSeenState, deleteNotification }}>
+    <Store.Provider
+      value={{ stores, dispatch, changeSeenState, deleteNotification }}
+    >
       {children}
     </Store.Provider>
   );
